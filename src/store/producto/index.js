@@ -1,5 +1,5 @@
 
-import { apiIdLast, apiSendDataStore, apiGetDataStore } from '@/api/serverles';
+import { apiIdLast, apiSendDataStore, apiGetDataStore, apisendDataUsuari, apiuploadFile } from '@/api/serverles';
 export const state = () => ({
   isLoading: false,
   productos: '',
@@ -66,6 +66,16 @@ export const mutations = {
 };
 
 export const actions = {
+    async sendDataUsuari({ commit }, payload) {
+      const responsesendDataUsuari = await apisendDataUsuari(payload);
+      console.log("responsesendDataUsuari", responsesendDataUsuari);
+      // commit('SET_ID', responseApiIdLast.data.ID);
+  },
+  async uploadFile({ commit }, payload) {
+    const responseuploadFile = await apiuploadFile(payload);
+    console.log("responseuploadFile", responseuploadFile);
+    // commit('SET_ID', responseApiIdLast.data.ID);
+  },
     async getId({ commit }, payload) {
         const responseApiIdLast = await apiIdLast(payload);
         console.log("responseApiIdLast", responseApiIdLast);
