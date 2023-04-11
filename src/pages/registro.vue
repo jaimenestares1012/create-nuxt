@@ -20,6 +20,7 @@
 
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -27,6 +28,9 @@ export default {
       apellido: '',
       correo: '',
     }
+  },
+  computed: {
+    ...mapGetters('producto', ['identificador']),
   },
   methods: {
     async submitForm() {
@@ -37,6 +41,7 @@ export default {
         mail: this.correo,
       }
       await this.$store.dispatch('producto/sendDataUsuari', paylodad)
+      this.$router.push('/upload')
     },
   },
 }

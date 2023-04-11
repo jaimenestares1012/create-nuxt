@@ -1,7 +1,6 @@
 
 <template>
   <div class="contenedor-upload">
-    <div>TESTTTTTTTTTTTTTT33333333333333TTTTTTTTTTTTTT</div>
     <div>
       <div class="file-select" id="src-file1">
         <input
@@ -35,10 +34,12 @@ export default {
         const url = URL.createObjectURL(file)
         console.log('url', url)
         const base64 = await this.getBase64(file)
-        console.log(base64)
+        const base64WithoutHeaders = base64.substring(base64.indexOf(',') + 1)
+        console.log('base64WithoutHeaders', base64WithoutHeaders)
         const paylodad = {
           name: file.name.split('.')[0],
-          base64: base64,
+          base64: base64WithoutHeaders,
+          identificador: this.identificador,
         }
         await this.$store.dispatch('producto/uploadFile', paylodad)
       } else {
@@ -55,14 +56,16 @@ export default {
       })
     },
   },
-  computed: {},
+  computed: {
+    ...mapGetters('producto', ['identificador']),
+  },
   async mounted() {},
 }
 </script>
 
 <style>
 .contenedor-upload {
-  width: 100%;
-  background: rgb(211, 196, 196);
+  width: 70%;
+  margin: 200px auto;
 }
 </style>

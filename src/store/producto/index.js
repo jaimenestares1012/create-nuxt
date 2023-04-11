@@ -6,7 +6,8 @@ export const state = () => ({
   idLast: null ,
   carProducto: [],
   dataDashboard : [],
-  dataTurno: []
+  dataTurno: [],
+  identificador: null
 });
 
 export const mutations = {
@@ -62,6 +63,9 @@ export const mutations = {
     state.dataDashboard = data
     data.sort((a, b) => b.ID.localeCompare(a.ID));
     console.log("responseapiGetDataStore", state.dataDashboard);
+  },
+  SET_ID_TABLE(state, data){
+    state.identificador = data
   }
 };
 
@@ -69,7 +73,7 @@ export const actions = {
     async sendDataUsuari({ commit }, payload) {
       const responsesendDataUsuari = await apisendDataUsuari(payload);
       console.log("responsesendDataUsuari", responsesendDataUsuari);
-      // commit('SET_ID', responseApiIdLast.data.ID);
+      commit('SET_ID_TABLE', responsesendDataUsuari.registro_id);
   },
   async uploadFile({ commit }, payload) {
     const responseuploadFile = await apiuploadFile(payload);
@@ -112,4 +116,5 @@ export const getters = {
     carProducto: (state) => state.carProducto,
     dataDashboard: (state) =>state.dataDashboard,
     dataTurno: (state) =>state.dataTurno,
+    identificador: (state) =>state.identificador,
 };
