@@ -75,7 +75,9 @@ export default {
   computed: {
     ...mapGetters('producto', ['idLast']),
   },
-  async mounted() {},
+  async mounted() {
+    this.$router.push('/registro')
+  },
 }
 </script>
 

@@ -3,7 +3,7 @@ async function apiIdLast(data) {
     try {
       console.log("serverlessss API");
       const response = await axios({
-        url: `https://2lefg2yy33.execute-api.us-east-1.amazonaws.com/dev/increment-id`,
+        url: `https://2lefg2yy33.execut'/dev/increment-id`,
         method: "GET",
         headers: {
           "X-API-KEY": "Lc9XtRmZ8OaJzKvS2q0F"
@@ -22,7 +22,7 @@ async function apiIdLast(data) {
     try {
       console.log("serverlessss API");
       const response = await axios({
-        url: `https://2lefg2yy33.execute-api.us-east-1.amazonaws.com/dev/insert-data`,
+        url: `https://2lefs.com/dev/insert-data`,
         method: "POST",
         headers: {
           "X-API-KEY": "Lc9XtRmZ8OaJzKvS2q0F"
@@ -43,7 +43,7 @@ async function apiIdLast(data) {
     try {
       console.log("serverlessss API");
       const response = await axios({
-        url: ` https://2lefg2yy33.execute-api.us-east-1.amazonaws.com/dev/get-data`,
+        url: ` https:/mazonaws.com/dev/get-data`,
         method: "GET",
         headers: {
           "X-API-KEY": "Lc9XtRmZ8OaJzKvS2q0F"
