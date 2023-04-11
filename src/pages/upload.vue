@@ -1,7 +1,7 @@
 
 <template>
   <div class="contenedor-upload">
-    <div>
+    <div v-if="condicion">
       <div class="file-select" id="src-file1">
         <input
           type="file"
@@ -11,6 +11,45 @@
           @change="setFiles($event)"
         />
       </div>
+    </div>
+    <div
+      v-else
+      style="
+        font-size: 50px;
+        border-radius: 30px;
+        background: #ffffff;
+        text-align: center;
+      "
+      @click="refrescar"
+    >
+      refrescar
+    </div>
+
+    <div style="margin-top: 100px">
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Tax filing</th>
+            <th>Wages</th>
+            <th>Total deductions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="width: 200px">{{ registros.id }}</td>
+            <td>{{ registros.nombre }}</td>
+            <td>{{ registros.apellido }}</td>
+            <td>{{ registros.correo }}</td>
+            <td>{{ registros.tax_filing }}</td>
+            <td>{{ registros.wages }}</td>
+            <td>{{ registros.total_deductions }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -27,6 +66,7 @@ export default {
   },
   methods: {
     async setFiles(event) {
+      this.$showSpinner(true)
       console.log('evento recibido')
       const file = document.querySelector('input[type=file]').files[0]
       console.log('file', file)
@@ -42,7 +82,9 @@ export default {
           identificador: this.identificador,
         }
         await this.$store.dispatch('producto/uploadFile', paylodad)
+        this.$showSpinner(false)
       } else {
+        this.$showSpinner(false)
         console.log('error')
       }
     },
@@ -55,11 +97,22 @@ export default {
         reader.onerror = (error) => reject(error)
       })
     },
+    refrescar() {
+      this.$router.push('/registro')
+      this.$store.commit('producto/DELETE')
+    },
   },
   computed: {
-    ...mapGetters('producto', ['identificador']),
+    ...mapGetters('producto', ['identificador', 'registros']),
+    condicion() {
+      return Object.keys(this.registros).length == 0 ? true : false
+    },
   },
-  async mounted() {},
+  async mounted() {
+    if (!this.identificador) {
+      this.$router.push('/registro')
+    }
+  },
 }
 </script>
 
@@ -67,5 +120,24 @@ export default {
 .contenedor-upload {
   width: 70%;
   margin: 200px auto;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #4caf50;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 </style>

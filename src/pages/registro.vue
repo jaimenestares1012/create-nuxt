@@ -34,6 +34,7 @@ export default {
   },
   methods: {
     async submitForm() {
+      this.$showSpinner(true)
       // Aquí puedes hacer lo que necesites con los valores de los campos
       const paylodad = {
         name: this.nombre,
@@ -41,9 +42,11 @@ export default {
         mail: this.correo,
       }
       await this.$store.dispatch('producto/sendDataUsuari', paylodad)
+      this.$showSpinner(false)
       this.$router.push('/upload')
     },
   },
+  mounted() {},
 }
 </script>
 <style>

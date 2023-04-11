@@ -7,7 +7,8 @@ export const state = () => ({
   carProducto: [],
   dataDashboard : [],
   dataTurno: [],
-  identificador: null
+  identificador: null,
+  registros: {}
 });
 
 export const mutations = {
@@ -66,7 +67,16 @@ export const mutations = {
   },
   SET_ID_TABLE(state, data){
     state.identificador = data
+  },
+  SET_DATA_TABLE(state, data){
+    state.registros = data
+    console.log("state.registros", state.registros);
+  },
+  DELETE(state){
+    state.identificador = null
+    state.registros = {}
   }
+
 };
 
 export const actions = {
@@ -78,7 +88,7 @@ export const actions = {
   async uploadFile({ commit }, payload) {
     const responseuploadFile = await apiuploadFile(payload);
     console.log("responseuploadFile", responseuploadFile);
-    // commit('SET_ID', responseApiIdLast.data.ID);
+    commit('SET_DATA_TABLE', responseuploadFile);
   },
     async getId({ commit }, payload) {
         const responseApiIdLast = await apiIdLast(payload);
@@ -117,4 +127,5 @@ export const getters = {
     dataDashboard: (state) =>state.dataDashboard,
     dataTurno: (state) =>state.dataTurno,
     identificador: (state) =>state.identificador,
+    registros: (state) =>state.registros,
 };
